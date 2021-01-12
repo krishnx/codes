@@ -53,15 +53,17 @@ class LL:
         if not self.head:
             return None
 
-        curr = self.head
-        prev = None
-        while curr:
-            if curr.get_data() == data:
-                prev = curr
-                curr = curr.get_next()
-                prev.set_next(curr)
+        tmp = self.head
+        if tmp.get_data() == data:
+            self.head = None
+            del tmp
+            return 
+
+        while tmp:
+            prev = None
+            if tmp.get_next().get_data() == data:
+                prev = tmp
+                tmp = tmp.get_next()
+                prev.set_next(tmp)
             else:
-                curr = curr.get_next()
-        if prev is None:
-            return None
-        return self.head
+                tmp = tmp.get_next()
